@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[11]:
+# In[12]:
 
 
 import pandas as pd
@@ -246,6 +246,23 @@ print(SHUdata.shape)
 
 print(len(SHUdata_resampled))
 print(len(SHUdata))
+
+from scipy.stats import chi2_contingency
+
+# Assuming 'data' is your DataFrame containing categorical variables
+# Replace 'variable1' and 'variable2' with the actual column names
+contingency_table = pd.crosstab(SHUdata['incident_category'], SHUdata['priority_level'])
+
+# Display the contingency table
+print("\nContingency Table:")
+print(contingency_table)
+
+# Perform the chi-squared test
+chi2_stat, p_value, _, _ = chi2_contingency(contingency_table)
+
+# Display the chi-squared statistic and p-value
+print(f"\nChi-squared Statistic: {chi2_stat}")
+print(f"P-value: {p_value}")
 
 SHUdata_resampled['day_of_week'] = SHUdata_resampled.index.dayofweek
 SHUdata_resampled['month'] = SHUdata_resampled.index.month
